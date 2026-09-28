@@ -1314,6 +1314,50 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/110455476" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<style>
+  /* Free lesson dialog */
+  #free-lesson-dialog {
+    margin: auto;
+    width: min(540px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    padding: 44px 32px 32px;
+    overflow-y: auto;
+    background: var(--bg2);
+    color: var(--text);
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 50px rgba(0,245,255,0.15);
+    font-family: 'Montserrat', sans-serif;
+    cursor: auto;
+  }
+  #free-lesson-dialog::backdrop { background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); }
+  #free-lesson-dialog h2 { padding-right: 24px; margin-bottom: 20px; font-size: 24px; line-height: 1.3; }
+  #free-lesson-dialog p { font-size: 14px; line-height: 1.8; margin-bottom: 16px; }
+  #free-lesson-dialog .free-lesson-note { color: #a8b6c8; font-size: 12px; }
+  #free-lesson-dialog .free-lesson-link { display: block; margin-top: 24px; padding: 16px 20px; text-align: center; line-height: 1.5; letter-spacing: 1px; cursor: pointer; }
+  .free-lesson-close { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border: 0; background: transparent; color: var(--text); font-size: 30px; cursor: pointer; }
+  #free-lesson-dialog :focus-visible, #free-lesson-open:focus-visible { outline: 2px solid var(--neon-green); outline-offset: 4px; }
+  @media (max-width: 600px) {
+    nav { gap: 12px; padding: 12px 16px; }
+    .nav-logo { font-size: 20px; letter-spacing: 1px; }
+    #free-lesson-open { max-width: 210px; padding: 10px 12px; font-size: 10px; letter-spacing: 0.5px; line-height: 1.5; }
+    #free-lesson-dialog { padding: 48px 24px 24px; }
+  }
+</style>
+<style>
+  /* Four packages, using the same typography for every card. */
+  .pricing-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1280px; }
+  .pricing-card { padding: 52px 24px 36px; min-width: 0; }
+  .pricing-features li { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; line-height: 1.6; }
+  .pricing-name { min-height: 80px; }
+  .pricing-btn { padding: 16px 20px; }
+  @media (max-width: 1100px) {
+    .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 800px; gap: 16px; }
+  }
+  @media (max-width: 600px) {
+    .pricing-grid { grid-template-columns: 1fr; max-width: 460px; }
+    .pricing-name { min-height: 0; }
+  }
+</style>
 </head>
 <body>
 
@@ -1325,7 +1369,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">СКОРОЧТЕНИЕ</div>
-  <a href="#" onclick="document.getElementById('buy-anchor').scrollIntoView({behavior:'smooth'});return false;" class="nav-cta">Купить программу</a>
+  <button type="button" class="nav-cta" id="free-lesson-open" aria-haspopup="dialog" aria-controls="free-lesson-dialog">Получить бесплатный урок</button>
 </nav>
 
 <!-- HERO -->
@@ -1606,6 +1650,20 @@
 
   <div class="pricing-grid">
 
+    <!-- FIVE LESSONS -->
+    <div class="pricing-card">
+      <div class="pricing-tier-label">Знакомство с программой</div>
+      <h3 class="pricing-name">5 уроков</h3>
+      <div class="pricing-amount"><span class="pricing-cur">₽</span>1 490</div>
+      <div class="pricing-period">единоразово</div>
+      <ul class="pricing-features">
+        <li class="feat-yes"><span style="text-align: left; min-width: 0;">Материалы для 5 полноценных занятий из 68</span></li>
+        <li class="feat-no">Методические рекомендации</li>
+        <li class="feat-no">Онлайн-встреча с автором</li>
+      </ul>
+      <a href="https://masterrep.getplatinum.ru/payment/meKZcAS" target="_blank" class="pricing-btn pricing-btn--outline">Выбрать →</a>
+    </div>
+
     <!-- STARTER -->
     <div class="pricing-card">
       <div class="pricing-tier-label">Старт</div>
@@ -1704,7 +1762,7 @@
         <div class="seasonal-price-label">Стоимость</div>
         <div class="seasonal-price">₽12 000</div>
         <div class="seasonal-price-note">единоразово</div>
-        <a href="https://masterrep.getplatinum.ru/payment/HYztLC9" target="_blank" class="pricing-btn pricing-btn--seasonal">Купить интенсив →</a>
+        <p class="seasonal-unavailable" style="margin: 0; padding: 16px 20px; border: 1px solid var(--card-border); color: var(--text-muted); font-size: 14px; line-height: 1.6; text-align: center;">Материал на данный момент недоступен</p>
         <div class="seasonal-combo">
           <span>💡</span>
           <span>Идеально дополняет любой из основных пакетов</span>
@@ -1835,6 +1893,40 @@ document.querySelectorAll('.card, .lesson-item, .who-point, .tl-item').forEach(e
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   io.observe(el);
 });
+</script>
+<dialog id="free-lesson-dialog" aria-labelledby="free-lesson-title" aria-describedby="free-lesson-description free-lesson-note">
+  <button type="button" class="free-lesson-close" aria-label="Закрыть окно" autofocus>×</button>
+  <h2 id="free-lesson-title">Бесплатный урок по скорочтению</h2>
+  <p id="free-lesson-description">Познакомьтесь с материалами программы: скачайте бесплатный урок по ссылке ниже.</p>
+  <p id="free-lesson-note" class="free-lesson-note">Ссылка ведёт на Яндекс Диск — внешний сервис для хранения файлов. Страница с материалами откроется в новой вкладке.</p>
+  <a class="btn-primary free-lesson-link" href="https://disk.yandex.ru/d/i7d_MH1u5J4Lzg" target="_blank" rel="noopener noreferrer">Скачать урок на Яндекс Диске ↗</a>
+</dialog>
+<script>
+(() => {
+  const dialog = document.getElementById('free-lesson-dialog');
+  const trigger = document.getElementById('free-lesson-open');
+  let previousOverflow = '';
+  trigger.addEventListener('click', () => {
+    previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+  });
+  dialog.querySelector('.free-lesson-close').addEventListener('click', () => dialog.close());
+  let startedOutside = false;
+  const outside = event => {
+    const rect = dialog.getBoundingClientRect();
+    return event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+  };
+  dialog.addEventListener('pointerdown', event => { startedOutside = event.target === dialog && outside(event); });
+  dialog.addEventListener('click', event => {
+    if (startedOutside && event.target === dialog && outside(event)) dialog.close();
+    startedOutside = false;
+  });
+  dialog.addEventListener('close', () => {
+    document.body.style.overflow = previousOverflow;
+    trigger.focus();
+  });
+})();
 </script>
 </body>
 </html>
